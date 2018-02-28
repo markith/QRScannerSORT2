@@ -1,2 +1,0 @@
-# QRScannerSORT2
-
