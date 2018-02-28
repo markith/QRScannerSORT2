@@ -13,7 +13,7 @@ class DatabaseTableViewController: UITableViewController {
     
     // attemping a change for github with this comment. Delete later.
     // this is a comment added on the TESTGIT
-    
+
     let ref = Database.database().reference(withPath: "keg-movements")
     var movements: [KegMovement] = []
     var sortedMovements: [KegMovement] = []
