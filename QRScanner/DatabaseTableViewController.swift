@@ -65,7 +65,7 @@ class DatabaseTableViewController: UITableViewController {
     func sortOnSelectedRow() {
         switch sortByProperty {
         case "date":
-            sortedMovements = movements.sorted( by: { $0.dateLong.compare($1.dateLong) == .orderedAscending } )
+            sortedMovements = movements.sorted( by: { $0.dateLong.compare($1.dateLong) == .orderedDescending } )
             tableViewTitle.title = "Sorted by Date"
         case "beerName":
             sortedMovements = movements.sorted( by: { $0.beerName.compare($1.beerName) == .orderedAscending } )
@@ -80,6 +80,8 @@ class DatabaseTableViewController: UITableViewController {
             //                sortedMovements = movements.sorted( by: { $0.locationName.compare($1.locationName) == .orderedAscending } )
             
             tableViewTitle.title = "Sorted by Customer"
+            
+            // Sort into sections by status or group into easy to view
         case "lifeCycleStatus":
 //            for keg in movements {
 //                if keg.lifeCycleStatus == "sold" {

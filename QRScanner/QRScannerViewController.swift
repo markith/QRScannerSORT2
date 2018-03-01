@@ -12,8 +12,11 @@ import Firebase
 
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
+    // Comment out "keg-movements" and uncomment "testing-movements" during development
     let ref = Database.database().reference(withPath: "keg-movements")
-    var movements: [KegMovement] = []    
+//    let ref = Database.database().reference(withPath: "testing-movements")
+
+    var movements: [KegMovement] = []
     var qrScannedCode = ""
     
     @IBOutlet var qrCodeLabel: UILabel?
@@ -44,7 +47,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                             kegFormVC?.updatedSendButtonTitle = "Mark keg as sold and delivered"
                             print("full to \(String(describing: kegFormVC?.lifeCycleStatus))")
                             break
-                        } else if keg.lifeCycleStatus == "" || keg.lifeCycleStatus == "empty" {
+                        } else if /* keg.lifeCycleStatus == "" || */ keg.lifeCycleStatus == "empty" {
                             kegFormVC?.lifeCycleStatus = "full"
                             kegFormVC?.updatedVCTitle = "Keg Fill Form"
                             kegFormVC?.updatedBeerLabel = "Enter name of beer:"
@@ -73,7 +76,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                     kegFormVC?.updatedBeerLabel = "Enter name of beer:"
                     kegFormVC?.updatedNotesText = "Keg has been filled and ready for sale"
                     kegFormVC?.updatedLocationLabel = "Keg filled at brewery"
-                    kegFormVC?.updatedLocationName = "Leave blank"
+                    kegFormVC?.updatedLocationName = "Arrow Lodge Brewing"
                     kegFormVC?.updatedSendButtonTitle = "Mark keg as filled and ready for sale"
                     print("New keg to \(String(describing: kegFormVC?.lifeCycleStatus))")
                     break
