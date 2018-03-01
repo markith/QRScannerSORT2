@@ -112,7 +112,7 @@ class DatabaseTableViewController: UITableViewController {
             sortedMovements = movements.sorted( by: { $0.lifeCycleStatus.compare($1.lifeCycleStatus) == .orderedAscending } )
             tableViewTitle.title = "Sorted by Keg Status"
         case "kegID":
-            sortedMovements = movements.sorted( by: { $0.kegID.compare($1.kegID) == .orderedDescending } )
+            sortedMovements = movements.sorted( by: { $0.kegID.compare($1.kegID) == .orderedAscending } )
             tableViewTitle.title = "Sorted by Keg ID"
         default:
             print("Something went wrong with the switch case")
