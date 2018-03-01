@@ -17,9 +17,10 @@ class KegFormViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var employeeNameTextField: UITextField!
     @IBOutlet weak var beerNameTextField: UITextField!
-    @IBOutlet weak var locationNameTextField: UITextField!
+    @IBOutlet weak var beerNameLabel: UILabel!
+    @IBOutlet var locationNameTextField: UITextField!
     @IBOutlet weak var notesTextField: UITextField!
-    @IBOutlet weak var locationNameLabel: UILabel!
+    @IBOutlet var locationNameLabel: UILabel!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var viewControllerTitle: UILabel!
     
@@ -35,6 +36,7 @@ class KegFormViewController: UIViewController, MFMailComposeViewControllerDelega
     var updatedLocationName = ""
     var updatedNotesText = ""
     var updatedVCTitle = ""
+    var updatedSendButtonTitle = ""
     var lifeCycleStatus = ""
     var dateForDatabase: String! = ""
     var dateForTableView: String! = ""
@@ -45,31 +47,6 @@ class KegFormViewController: UIViewController, MFMailComposeViewControllerDelega
         dismiss(animated: true, completion: nil)
         print("Entry Cancelled")
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        let sortedMovements = movements.sorted( by: { $0.dateLong.compare($1.dateLong) == .orderedDescending } )
-        
-        for keg in sortedMovements {
-            if keg.kegID.contains(qrScannedCode) {
-                if  qrScannedCode == keg.kegID {
-                    if keg.lifeCycleStatus == "full" {
-                        sendButton.setTitle("Mark keg as sold and delivered", for: .normal)
-                        break
-                    } else if keg.lifeCycleStatus == "sold" {
-                        sendButton.setTitle("Return to Arrow Lodge as empty", for: .normal)
-                        break
-                    }
-                }
-            } else {
-                locationNameTextField.isHidden = true
-                locationNameLabel.isHidden = true
-                sendButton.setTitle("Mark keg as filled and ready for sale", for: .normal)
-                break
-            }
-        }
-    }
-    
     
     override func viewDidLoad() {
         self.kegIDTextField.delegate = self
@@ -83,14 +60,14 @@ class KegFormViewController: UIViewController, MFMailComposeViewControllerDelega
         ref.observe(.value, with: { snapshot in
             // 2
             var newMovements: [KegMovement] = []
-            
+
             // 3
             for movements in snapshot.children {
                 // 4
                 let kegMovement = KegMovement(snapshot: movements as! DataSnapshot)
                 newMovements.append(kegMovement)
             }
-            
+
             // 5
             self.movements = newMovements
         })
@@ -119,6 +96,7 @@ class KegFormViewController: UIViewController, MFMailComposeViewControllerDelega
         locationNameTextField.text = updatedLocationName
         notesTextField.text = updatedNotesText
         viewControllerTitle.text = updatedVCTitle
+        sendButton.setTitle(updatedSendButtonTitle, for: .normal)
         
         // Dismiss keyboard by tapping anywhere
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))

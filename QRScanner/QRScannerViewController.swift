@@ -41,13 +41,17 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                             kegFormVC?.updatedVCTitle = "Keg Sold Form"
                             kegFormVC?.updatedLocationLabel = "Keg sold to:"
                             kegFormVC?.updatedNotesText = "Keg sold to customer and moved from full inventory"
+                            kegFormVC?.updatedSendButtonTitle = "Mark keg as sold and delivered"
                             print("full to \(String(describing: kegFormVC?.lifeCycleStatus))")
                             break
-                        } else if /*keg.lifeCycleStatus == "" || */keg.lifeCycleStatus == "empty" {
+                        } else if keg.lifeCycleStatus == "" || keg.lifeCycleStatus == "empty" {
                             kegFormVC?.lifeCycleStatus = "full"
                             kegFormVC?.updatedVCTitle = "Keg Fill Form"
                             kegFormVC?.updatedBeerLabel = "Enter name of beer:"
                             kegFormVC?.updatedNotesText = "Keg has been filled and ready for sale"
+                            kegFormVC?.updatedLocationLabel = "Keg filled at brewery"
+                            kegFormVC?.updatedLocationName = "Leave blank"
+                            kegFormVC?.updatedSendButtonTitle = "Mark keg as filled and ready for sale"
                             print("empty to \(String(describing: kegFormVC?.lifeCycleStatus))")
                             break
                         } else if keg.lifeCycleStatus == "sold" {
@@ -57,16 +61,21 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                             kegFormVC?.updatedLocationLabel = "Keg picked up from:"
                             kegFormVC?.updatedLocationName = keg.locationName
                             kegFormVC?.updatedNotesText = "Keg returned from customer and move to empty inventory"
+                            kegFormVC?.updatedSendButtonTitle = "Return to Arrow Lodge as empty"
                             print("sold to \(String(describing: kegFormVC?.lifeCycleStatus))")
                             break
                         }
                     }
-                } else {
+                }
+                else {
                     kegFormVC?.lifeCycleStatus = "full"
                     kegFormVC?.updatedVCTitle = "Keg Fill Form"
                     kegFormVC?.updatedBeerLabel = "Enter name of beer:"
                     kegFormVC?.updatedNotesText = "Keg has been filled and ready for sale"
-                    print("empty to \(String(describing: kegFormVC?.lifeCycleStatus))")
+                    kegFormVC?.updatedLocationLabel = "Keg filled at brewery"
+                    kegFormVC?.updatedLocationName = "Leave blank"
+                    kegFormVC?.updatedSendButtonTitle = "Mark keg as filled and ready for sale"
+                    print("New keg to \(String(describing: kegFormVC?.lifeCycleStatus))")
                     break
                 }
             }
