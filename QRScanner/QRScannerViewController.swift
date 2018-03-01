@@ -49,8 +49,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                             kegFormVC?.updatedVCTitle = "Keg Fill Form"
                             kegFormVC?.updatedBeerLabel = "Enter name of beer:"
                             kegFormVC?.updatedNotesText = "Keg has been filled and ready for sale"
-                            kegFormVC?.updatedLocationLabel = "Keg filled at brewery"
-                            kegFormVC?.updatedLocationName = "Leave blank"
+                            kegFormVC?.updatedLocationLabel = "Keg filled at:"
+                            kegFormVC?.updatedLocationName = "Arrow Lodge Brewing"
                             kegFormVC?.updatedSendButtonTitle = "Mark keg as filled and ready for sale"
                             print("empty to \(String(describing: kegFormVC?.lifeCycleStatus))")
                             break
