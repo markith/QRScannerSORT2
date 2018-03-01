@@ -25,7 +25,11 @@ class KegFormViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var viewControllerTitle: UILabel!
     
     let qrVC = QRScannerViewController(nibName: "QRScannerViewController", bundle: nil)
+    // Comment out "keg-movements" and uncomment "testing-movements" during development
+    // Also make this change in QRScannerVC and DatabaseTVC
     let ref = Database.database().reference(withPath: "keg-movements")
+//    let ref = Database.database().reference(withPath: "testing-movements")
+
     var movements: [KegMovement] = []
     var sortedMovements: [KegMovement] = []
     
@@ -36,7 +40,7 @@ class KegFormViewController: UIViewController, MFMailComposeViewControllerDelega
     var updatedLocationName = ""
     var updatedNotesText = ""
     var updatedVCTitle = ""
-    var updatedSendButtonTitle = ""
+    var updatedSendButtonTitle = "Submit new keg into inventory"
     var lifeCycleStatus = ""
     var dateForDatabase: String! = ""
     var dateForTableView: String! = ""
@@ -90,7 +94,7 @@ class KegFormViewController: UIViewController, MFMailComposeViewControllerDelega
         
         kegIDTextField.text = qrScannedCode as String?
         dateTextField.text = dateForTableView
-        employeeNameTextField.text = "Mark Fransen"
+        employeeNameTextField.text = ""
         locationNameLabel.text = updatedLocationLabel
         beerNameTextField.text = updatedBeerName
         locationNameTextField.text = updatedLocationName
@@ -124,27 +128,34 @@ class KegFormViewController: UIViewController, MFMailComposeViewControllerDelega
                                       preferredStyle: .alert)
         
         let saveAction = UIAlertAction(title: "Send",
-                                       style: .default) { _ in
+                                       style: .default, handler: { (action) -> Void in
                                         // 1
                                         guard let text = self.dateForDatabase else { return }
-                                        
+
                                         // 2
                                         let kegMovement = KegMovement(dateLong: self.dateForDatabase, dateShort: self.dateForTableView, kegID: self.kegIDTextField.text!, employeeName: self.employeeNameTextField.text!, beerName: self.beerNameTextField.text!, locationName: self.locationNameTextField.text!, notes: self.notesTextField.text!, lifeCycleStatus: self.lifeCycleStatus)
-                                        
+
                                         // 3
                                         let kegMovementRef = self.ref.child(text.lowercased())
-                                        
+
                                         // 4
                                         kegMovementRef.setValue(kegMovement.toAnyObject())
-                                        
+
                                         self.dismiss(animated: true, completion:nil)
-        }
+
+                                        // going back to QRScannerVC after hitting send isn't working
+                                        alert.dismiss(animated: true, completion: { () -> Void in
+                                            self.performSegue(withIdentifier: "QRScannerViewController", sender: nil)
+                                        })
+                                        
+        })
         
         let cancelAction = UIAlertAction(title: "Cancel",
                                          style: .default)
-        
+    
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
+        
         alert.setValue(messageText, forKey: "attributedMessage")
         
         present(alert, animated: true, completion: nil)
