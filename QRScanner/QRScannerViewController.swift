@@ -13,6 +13,7 @@ import Firebase
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     // Comment out "keg-movements" and uncomment "testing-movements" during development
+    // Also make this change in KegFormVC and DatabaseTVC
     let ref = Database.database().reference(withPath: "keg-movements")
 //    let ref = Database.database().reference(withPath: "testing-movements")
 

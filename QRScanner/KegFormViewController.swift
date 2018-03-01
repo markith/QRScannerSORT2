@@ -25,7 +25,11 @@ class KegFormViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var viewControllerTitle: UILabel!
     
     let qrVC = QRScannerViewController(nibName: "QRScannerViewController", bundle: nil)
+    // Comment out "keg-movements" and uncomment "testing-movements" during development
+    // Also make this change in QRScannerVC and DatabaseTVC
     let ref = Database.database().reference(withPath: "keg-movements")
+//    let ref = Database.database().reference(withPath: "testing-movements")
+
     var movements: [KegMovement] = []
     var sortedMovements: [KegMovement] = []
     

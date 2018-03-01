@@ -10,11 +10,12 @@ import UIKit
 import Firebase
 
 class DatabaseTableViewController: UITableViewController {
-    
-    // attemping a change for github with this comment. Delete later.
-    // this is a comment added on the TESTGIT
 
+    // Comment out "keg-movements" and uncomment "testing-movements" during development
+    // Also make this change in QRScannerVC and KegFormVC
     let ref = Database.database().reference(withPath: "keg-movements")
+//    let ref = Database.database().reference(withPath: "testing-movements")
+    
     var movements: [KegMovement] = []
     var sortedMovements: [KegMovement] = []
     
@@ -31,6 +32,8 @@ class DatabaseTableViewController: UITableViewController {
     var soldArray: [KegMovement] = []
     var fullArray: [KegMovement] = []
     var emptyArray: [KegMovement] = []
+    var tableViewTitleText = ""
+    var tableViewSubtitleText = ""
     
     var sortedDict = [Array<KegMovement>]()
     
@@ -67,6 +70,11 @@ class DatabaseTableViewController: UITableViewController {
         case "date":
             sortedMovements = movements.sorted( by: { $0.dateLong.compare($1.dateLong) == .orderedDescending } )
             tableViewTitle.title = "Sorted by Date"
+            
+            // Change title and subtitle in tableview based on how data is sorted:
+//            tableViewTitleText = "\(kegMovement.dateShort): \(kegMovement.kegID)"
+//            tableViewSubtitleText = "Filled: \(kegMovement.beerName) | Ready for sale."
+            
         case "beerName":
             sortedMovements = movements.sorted( by: { $0.beerName.compare($1.beerName) == .orderedAscending } )
             tableViewTitle.title = "Sorted by Beer"
@@ -126,51 +134,39 @@ class DatabaseTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovementsCell", for: indexPath)
-        
-        //        sortOnSelectedRow()
-        
-        //
-        ////        var sortedMovements: [KegMovement] = []
-        //        if sortByProperty == "date" {
-        //            sortedMovements = movements.sorted( by: { $0.dateLong.compare($1.dateLong) == .orderedAscending } )
-        //            tableViewTitle.title = "Sorted by Date"
-        //        } else if sortByProperty == "beerName" {
-        //            sortedMovements = movements.sorted( by: { $0.beerName.compare($1.beerName) == .orderedAscending } )
-        //            tableViewTitle.title = "Sorted by Beer"
-        //        } else if sortByProperty == "customerName" {
-        //            // Sort out kegs that aren't currently with a customer
-        //            // sort into array with only status "sold" then sort by date?
-        //
-        //            sortedMovements = movements.filter( { $0.lifeCycleStatus == "sold" } )
-        //            print("customer filtered by sold \(sortedMovements)")
-        ////            sortedMovements = tempSort.sorted( by: { $0.locationName.compare($1.locationName) == .orderedAscending } )
-        //
-        //            // Original working:
-        ////            sortedMovements = movements.sorted( by: { $0.locationName.compare($1.locationName) == .orderedAscending } )
-        //
-        //            tableViewTitle.title = "Sorted by Customer"
-        //                    } else if sortByProperty == "lifeCycleStatus" {
-        //            sortedMovements = movements.sorted( by: { $0.lifeCycleStatus.compare($1.lifeCycleStatus) == .orderedAscending } )
-        //            tableViewTitle.title = "Sorted by Keg Status"
-        //        } else if sortByProperty == "kegID" {
-        //            sortedMovements = movements.sorted( by: { $0.kegID.compare($1.kegID) == .orderedDescending } )
-        //            tableViewTitle.title = "Sorted by Keg ID"
-        //        }
-        
-        
         let kegMovement = sortedMovements[indexPath.row]
-        
         cell.textLabel?.text = "\(kegMovement.kegID): \(kegMovement.dateShort)"
         
-        for _ in sortedMovements {
-            if kegMovement.lifeCycleStatus == "full" {
-                cell.detailTextLabel?.text = "Filled: \(kegMovement.beerName) | Ready for sale."
-            } else if kegMovement.lifeCycleStatus == "sold" {
-                cell.detailTextLabel?.text = "Sold: \(kegMovement.beerName) | To: \(kegMovement.locationName)."
-            } else if kegMovement.lifeCycleStatus == "empty" || kegMovement.lifeCycleStatus == ""{
-                cell.detailTextLabel?.text = "Empty | returned from \(kegMovement.locationName)"
-            }
+        switch sortByProperty {
+        case "date":
+            // Change title and subtitle in tableview based on how data is sorted:
+            //cell.textLabel?.text = "\(kegMovement.dateShort): \(kegMovement.kegID)"
+            cell.detailTextLabel?.text = "\(kegMovement.lifeCycleStatus) | Beer: \(kegMovement.beerName) | Location: \(kegMovement.locationName)"
+        case "beerName":
+            //cell.textLabel?.text = "\(kegMovement.beerName): \(kegMovement.kegID)"
+            cell.detailTextLabel?.text = "Beer: \(kegMovement.beerName) | \(kegMovement.lifeCycleStatus) | Location: \(kegMovement.locationName)"
+        case "customerName":
+            //cell.textLabel?.text = "\(kegMovement.locationName): \(kegMovement.kegID)"
+            cell.detailTextLabel?.text = "Location: \(kegMovement.locationName) | \(kegMovement.lifeCycleStatus) | Beer: \(kegMovement.beerName)"
+        case "lifeCycleStatus":
+            //cell.textLabel?.text = "\(kegMovement.lifeCycleStatus): \(kegMovement.kegID)"
+            cell.detailTextLabel?.text = "\(kegMovement.lifeCycleStatus) | Beer: \(kegMovement.beerName) | Location: \(kegMovement.locationName)"
+        case "kegID":
+            //cell.textLabel?.text = "\(kegMovement.kegID): \(kegMovement.dateShort)"
+            cell.detailTextLabel?.text = "\(kegMovement.lifeCycleStatus) | Beer: \(kegMovement.beerName) | Location: \(kegMovement.locationName)"
+        default:
+            print("Something went wrong with the switch case")
         }
+        
+//        for _ in sortedMovements {
+//            if kegMovement.lifeCycleStatus == "full" {
+//                cell.detailTextLabel?.text = "Filled: \(kegMovement.beerName) | Ready for sale."
+//            } else if kegMovement.lifeCycleStatus == "sold" {
+//                cell.detailTextLabel?.text = "Sold: \(kegMovement.beerName) | To: \(kegMovement.locationName)."
+//            } else if kegMovement.lifeCycleStatus == "empty" || kegMovement.lifeCycleStatus == ""{
+//                cell.detailTextLabel?.text = "Empty | returned from \(kegMovement.locationName)"
+//            }
+//        }
         return cell
     }
     
