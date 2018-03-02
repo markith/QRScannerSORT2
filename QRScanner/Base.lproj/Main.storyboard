@@ -38,7 +38,7 @@
                                         <rect key="frame" x="0.0" y="303" width="375" height="300"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAk-Ih-R5v">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="57.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="47.5"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="25"/>
                                                 <state key="normal" title="View Logs by Date">
@@ -50,7 +50,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MnS-Dd-PKl">
-                                                <rect key="frame" x="0.0" y="60.5" width="375" height="57.5"/>
+                                                <rect key="frame" x="0.0" y="50.5" width="375" height="47.5"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="25"/>
                                                 <state key="normal" title="View Logs by Beer">
@@ -62,7 +62,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LLM-eT-exV">
-                                                <rect key="frame" x="0.0" y="121" width="375" height="58"/>
+                                                <rect key="frame" x="0.0" y="101" width="375" height="47.5"/>
                                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="25"/>
                                                 <state key="normal" title="View Logs by Customer">
@@ -74,7 +74,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpy-he-eFG">
-                                                <rect key="frame" x="0.0" y="182" width="375" height="57.5"/>
+                                                <rect key="frame" x="0.0" y="151.5" width="375" height="47.5"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="25"/>
                                                 <state key="normal" title="View Logs by Keg Status">
@@ -86,7 +86,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0p-r2-oSA">
-                                                <rect key="frame" x="0.0" y="242.5" width="375" height="57.5"/>
+                                                <rect key="frame" x="0.0" y="202" width="375" height="47.5"/>
                                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="25"/>
                                                 <state key="normal" title="View Logs by Keg ID">
@@ -95,6 +95,16 @@
                                                 <connections>
                                                     <action selector="kegIDButton:" destination="ZDP-BA-fuI" eventType="touchUpInside" id="40E-Vj-npt"/>
                                                     <segue destination="xef-T6-SuA" kind="show" id="jdw-FO-hSH"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTD-gJ-lAH">
+                                                <rect key="frame" x="0.0" y="252.5" width="375" height="47.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
+                                                <state key="normal" title="Report bug">
+                                                    <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="reportBugButton:" destination="ZDP-BA-fuI" eventType="touchUpInside" id="a4c-U5-njg"/>
                                                 </connections>
                                             </button>
                                         </subviews>

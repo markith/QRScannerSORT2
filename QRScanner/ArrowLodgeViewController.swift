@@ -12,6 +12,7 @@ import Firebase
 class ArrowLodgeViewController: UIViewController {
 
     var sortByButton = ""
+    let url = "https://www.google.com"
     
     @IBAction func dateButton(_ sender: Any) {
         sortByButton = "dateButton"
@@ -27,6 +28,9 @@ class ArrowLodgeViewController: UIViewController {
     }
     @IBAction func kegIDButton(_ sender: Any) {
         sortByButton = "kegIDButton"
+    }
+    @IBAction func reportBugButton(_ sender: Any) {
+        UIApplication.shared.open(URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSdiRV0aDQzU59W6_58i5FPMZ_cJlVkK8x_O8O9SyDh6YQ27WQ/viewform?usp=sf_link")! as URL, options: [:], completionHandler: nil)
     }
     
     override func viewDidLoad() {
