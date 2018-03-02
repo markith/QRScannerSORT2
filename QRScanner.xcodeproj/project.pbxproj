@@ -436,7 +436,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.markith.QRScanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "438a2f9f-0eec-4a12-ba9d-d5c3db2a2be6";
+				PROVISIONING_PROFILE = "f41cc814-f220-4f3e-8887-c45d9e7a2f18";
 				PROVISIONING_PROFILE_SPECIFIER = "AL Kegs distro";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
