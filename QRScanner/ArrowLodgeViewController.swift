@@ -14,6 +14,9 @@ class ArrowLodgeViewController: UIViewController {
     var sortByButton = ""
     let url = "https://www.google.com"
     
+    @IBAction func currentInventoryButton(_ sender: Any) {
+        sortByButton = "inventoryButton"
+    }
     @IBAction func dateButton(_ sender: Any) {
         sortByButton = "dateButton"
     }
@@ -56,6 +59,8 @@ class ArrowLodgeViewController: UIViewController {
                 databaseTableViewVC?.sortByProperty = "lifeCycleStatus"
             } else if sortByButton == "kegIDButton" {
                 databaseTableViewVC?.sortByProperty = "kegID"
+            } else if sortByButton == "inventoryButton" {
+                databaseTableViewVC?.sortByProperty = "inventory"
             }
     }
     }

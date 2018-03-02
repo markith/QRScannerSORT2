@@ -67,6 +67,10 @@ class DatabaseTableViewController: UITableViewController {
     
     func sortOnSelectedRow() {
         switch sortByProperty {
+        case "inventory":
+            let tempSort = movements.filter( { $0.locationName == "Arrow Lodge Brewing" } )
+            sortedMovements = tempSort.sorted( by: { $0.beerName.compare($1.beerName) == .orderedAscending } )
+            tableViewTitle.title = "Currently in inventory"
         case "date":
             sortedMovements = movements.sorted( by: { $0.dateLong.compare($1.dateLong) == .orderedDescending } )
             tableViewTitle.title = "Sorted by Date"
@@ -79,8 +83,7 @@ class DatabaseTableViewController: UITableViewController {
             sortedMovements = movements.sorted( by: { $0.beerName.compare($1.beerName) == .orderedAscending } )
             tableViewTitle.title = "Sorted by Beer"
         case "customerName":
-            // Trying to only include "sold" objects
-            // IT WORKS!
+
             let tempSort = movements.filter( { $0.lifeCycleStatus == "sold" } )
             sortedMovements = tempSort.sorted( by: { $0.locationName.compare($1.locationName) == .orderedAscending } )
             
@@ -138,6 +141,8 @@ class DatabaseTableViewController: UITableViewController {
         cell.textLabel?.text = "\(kegMovement.kegID): \(kegMovement.dateShort)"
         
         switch sortByProperty {
+        case "inventory":
+            cell.detailTextLabel?.text = "\(kegMovement.lifeCycleStatus) | Beer: \(kegMovement.beerName) | Location: \(kegMovement.locationName)"
         case "date":
             // Change title and subtitle in tableview based on how data is sorted:
             //cell.textLabel?.text = "\(kegMovement.dateShort): \(kegMovement.kegID)"
