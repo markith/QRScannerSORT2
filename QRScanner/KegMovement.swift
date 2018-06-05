@@ -9,11 +9,14 @@
 import Foundation
 import Firebase
 
+
+
 class KegMovement {
     
     let key: String
     let dateLong: String
     let dateShort: String
+    let dateTimeIntervalSince1970: String
     let kegID: String
     let employeeName: String
     let beerName: String
@@ -22,10 +25,11 @@ class KegMovement {
     var lifeCycleStatus: String // "empty", "full", or "sold"
     let ref: DatabaseReference?
 
-    init(key: String = "", dateLong: String, dateShort: String, kegID: String, employeeName: String, beerName: String, locationName: String, notes: String, lifeCycleStatus: String) {
+    init(key: String = "", dateLong: String, dateShort: String, dateTimeIntervalSince1970: String, kegID: String, employeeName: String, beerName: String, locationName: String, notes: String, lifeCycleStatus: String) {
         self.key = key
         self.dateLong = dateLong
         self.dateShort = dateShort
+        self.dateTimeIntervalSince1970 = dateTimeIntervalSince1970
         self.kegID = kegID
         self.employeeName = employeeName
         self.beerName = beerName
@@ -40,6 +44,7 @@ class KegMovement {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         dateLong = snapshotValue["dateLong"] as! String
         dateShort = snapshotValue["dateShort"] as! String
+        dateTimeIntervalSince1970 = snapshotValue["dateTimeIntervalSince1970"] as! String
         kegID = snapshotValue["kegID"] as! String
         employeeName = snapshotValue["employeeName"] as! String
         beerName = snapshotValue["beerName"] as! String
@@ -53,6 +58,7 @@ class KegMovement {
         return [
             "dateLong": dateLong,
             "dateShort": dateShort,
+            "dateTimeIntervalSince1970": dateTimeIntervalSince1970,
             "kegID": kegID,
             "employeeName": employeeName,
             "beerName": beerName,

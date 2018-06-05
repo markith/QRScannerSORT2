@@ -12,7 +12,7 @@ import Firebase
 class ArrowLodgeViewController: UIViewController {
 
     var sortByButton = ""
-    let url = "https://www.google.com"
+    let url = "https://docs.google.com/forms/d/e/1FAIpQLSdiRV0aDQzU59W6_58i5FPMZ_cJlVkK8x_O8O9SyDh6YQ27WQ/viewform?usp=sf_link"
     
     @IBAction func currentInventoryButton(_ sender: Any) {
         sortByButton = "inventoryButton"
@@ -33,7 +33,7 @@ class ArrowLodgeViewController: UIViewController {
         sortByButton = "kegIDButton"
     }
     @IBAction func reportBugButton(_ sender: Any) {
-        UIApplication.shared.open(URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSdiRV0aDQzU59W6_58i5FPMZ_cJlVkK8x_O8O9SyDh6YQ27WQ/viewform?usp=sf_link")! as URL, options: [:], completionHandler: nil)
+        UIApplication.shared.open(URL(string: url)! as URL, options: [:], completionHandler: nil)
     }
     
     override func viewDidLoad() {
@@ -47,20 +47,21 @@ class ArrowLodgeViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is DatabaseTableViewController {
-            let databaseTableViewVC = segue.destination as? DatabaseTableViewController
+        if segue.destination is MainTableViewController {
+            
+            let mainTVC = segue.destination as? MainTableViewController
             if sortByButton == "dateButton" {
-                databaseTableViewVC?.sortByProperty = "date"
+                mainTVC?.sortByProperty = "date"
             } else if sortByButton == "beerNameButton" {
-                databaseTableViewVC?.sortByProperty = "beerName"
+                mainTVC?.sortByProperty = "beerName"
             } else if sortByButton == "customerNameButton" {
-                databaseTableViewVC?.sortByProperty = "customerName"
+                mainTVC?.sortByProperty = "customerName"
             } else if sortByButton == "lifeCycleStatusButton" {
-                databaseTableViewVC?.sortByProperty = "lifeCycleStatus"
+                mainTVC?.sortByProperty = "lifeCycleStatus"
             } else if sortByButton == "kegIDButton" {
-                databaseTableViewVC?.sortByProperty = "kegID"
+                mainTVC?.sortByProperty = "kegID"
             } else if sortByButton == "inventoryButton" {
-                databaseTableViewVC?.sortByProperty = "inventory"
+                mainTVC?.sortByProperty = "inventory"
             }
     }
     }

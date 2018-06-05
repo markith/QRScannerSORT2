@@ -13,9 +13,10 @@ import Firebase
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     // Comment out "keg-movements" and uncomment "testing-movements" during development
-    // Also make this change in KegFormVC and DatabaseTVC
-    let ref = Database.database().reference(withPath: "keg-movements")
+    // Also make this change in KegFormVC, MainTableVC and DatabaseTVC
 //    let ref = Database.database().reference(withPath: "testing-movements")
+    let ref = Database.database().reference(withPath: "new-keg-movements")
+//    let ref = Database.database().reference(withPath: "keg-movements")
 
     var movements: [KegMovement] = []
     var qrScannedCode = ""
@@ -32,7 +33,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             scannedCode = qrCodeLabel!.text!
             kegFormVC?.qrScannedCode = scannedCode
             
-            let sortedMovements = movements.sorted( by: { $0.dateLong.compare($1.dateLong) == .orderedDescending } )
+            let sortedMovements = movements.sorted( by: { $0.dateTimeIntervalSince1970.compare($1.dateTimeIntervalSince1970) == .orderedDescending } )
             
             // If it's not in the sorted then assume it's empty and do those things
 
@@ -48,16 +49,16 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                             kegFormVC?.updatedSendButtonTitle = "Mark keg as sold and delivered"
                             print("full to \(String(describing: kegFormVC?.lifeCycleStatus))")
                             break
-                        } else if /* keg.lifeCycleStatus == "" || */ keg.lifeCycleStatus == "empty" {
-                            kegFormVC?.lifeCycleStatus = "full"
-                            kegFormVC?.updatedVCTitle = "Keg Fill Form"
-                            kegFormVC?.updatedBeerLabel = "Enter name of beer:"
-                            kegFormVC?.updatedNotesText = "Keg has been filled and ready for sale"
-                            kegFormVC?.updatedLocationLabel = "Keg filled at:"
-                            kegFormVC?.updatedLocationName = "Arrow Lodge Brewing"
-                            kegFormVC?.updatedSendButtonTitle = "Mark keg as filled and ready for sale"
-                            print("empty to \(String(describing: kegFormVC?.lifeCycleStatus))")
-                            break
+//                        } else if keg.lifeCycleStatus == "" || keg.lifeCycleStatus == "empty" {
+//                            kegFormVC?.lifeCycleStatus = "full"
+//                            kegFormVC?.updatedVCTitle = "Keg Fill Form"
+//                            kegFormVC?.updatedBeerLabel = "Enter name of beer:"
+//                            kegFormVC?.updatedNotesText = "Keg has been filled and ready for sale"
+//                            kegFormVC?.updatedLocationLabel = "Keg filled at:"
+//                            kegFormVC?.updatedLocationName = "Arrow Lodge Brewing"
+//                            kegFormVC?.updatedSendButtonTitle = "Mark keg as filled and ready for sale"
+//                            print("empty to \(String(describing: kegFormVC?.lifeCycleStatus))")
+//                            break
                         } else if keg.lifeCycleStatus == "sold" {
                             kegFormVC?.updatedBeerName = keg.beerName
                             kegFormVC?.lifeCycleStatus = "empty"
@@ -68,24 +69,22 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                             kegFormVC?.updatedSendButtonTitle = "Return to Arrow Lodge as empty"
                             print("sold to \(String(describing: kegFormVC?.lifeCycleStatus))")
                             break
-                        }
+                        } else /*if keg.lifeCycleStatus == "" || keg.lifeCycleStatus == "empty"*/ {
+                            kegFormVC?.lifeCycleStatus = "full"
+                            kegFormVC?.updatedVCTitle = "Keg Fill Form"
+                            kegFormVC?.updatedBeerLabel = "Enter name of beer:"
+                            kegFormVC?.updatedNotesText = "Keg has been filled and ready for sale"
+                            kegFormVC?.updatedLocationLabel = "Keg filled at:"
+                            kegFormVC?.updatedLocationName = "Arrow Lodge Brewing"
+                            kegFormVC?.updatedSendButtonTitle = "Mark keg as filled and ready for sale"
+                            print("empty to \(String(describing: kegFormVC?.lifeCycleStatus))")
+                            break
                     }
-                }
-                else {
-                    kegFormVC?.lifeCycleStatus = "full"
-                    kegFormVC?.updatedVCTitle = "Keg Fill Form"
-                    kegFormVC?.updatedBeerLabel = "Enter name of beer:"
-                    kegFormVC?.updatedNotesText = "Keg has been filled and ready for sale"
-                    kegFormVC?.updatedLocationLabel = "Keg filled at brewery"
-                    kegFormVC?.updatedLocationName = "Arrow Lodge Brewing"
-                    kegFormVC?.updatedSendButtonTitle = "Mark keg as filled and ready for sale"
-                    print("New keg to \(String(describing: kegFormVC?.lifeCycleStatus))")
-                    break
                 }
             }
         }
     }
-    
+    }
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
