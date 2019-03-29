@@ -21,7 +21,7 @@
 	<key>PROJECT_ID</key>
 	<string>qrscanner-f3cd4</string>
 	<key>STORAGE_BUCKET</key>
-	<string>qrscanner-f3cd4.appspot.com</string>
+	<string>STORAGE_BUCKET</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:38669692281:ios:31d5ff5a2bd07666</string>
+	<string>GOOGLE_APP_ID</string>
 	<key>DATABASE_URL</key>
-	<string>https://qrscanner-f3cd4.firebaseio.com</string>
+	<string>DATABASE_URL</string>
 </dict>
 </plist>
