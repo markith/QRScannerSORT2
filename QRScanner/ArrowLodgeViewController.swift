@@ -12,7 +12,7 @@ import Firebase
 class ArrowLodgeViewController: UIViewController {
 
     var sortByButton = ""
-    let url = "https://docs.google.com/forms/d/e/1FAIpQLSdiRV0aDQzU59W6_58i5FPMZ_cJlVkK8x_O8O9SyDh6YQ27WQ/viewform?usp=sf_link"
+    let url = ""
     
     @IBAction func currentInventoryButton(_ sender: Any) {
         sortByButton = "inventoryButton"
